@@ -103,7 +103,8 @@ export default {
 .secondary-banner {
   display: none;
   background: #33fff3;
-  padding: 300px 30px 30px;
+  padding: 30px 30px;
+  height: 100vh;
 }
 .secondary-banner .words {
   display: flex;
@@ -149,7 +150,9 @@ export default {
     display: none;
   }
   .secondary-banner {
-    display: block;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
   }
 }
 

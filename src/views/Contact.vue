@@ -22,13 +22,13 @@
     </div>
   </div>
 
-  <Footer></Footer>
+  <ContactFooter></ContactFooter>
 </template>
 
 <script>
 import Header from "../components/Header.vue";
 import Form from "../components/Form.vue";
-import Footer from "../components/Footer.vue";
+import ContactFooter from "../components/ContactFooter.vue";
 import Office from "../components/Offices.vue";
 
 export default {
@@ -36,7 +36,7 @@ export default {
   components: {
     Header,
     Form,
-    Footer,
+    ContactFooter,
     Office,
   },
 };
