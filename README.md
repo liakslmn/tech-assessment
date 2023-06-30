@@ -4,6 +4,7 @@ This web app is dedicated for a technical assessment as a part of the hiring pro
 # Installation
 Can git clone the repository and npm install on the CLI to download all of the required packages.
 Can also download the ZIP file, unZIP it and open with VSCode, open the terminal and npm install to include all of the required packages.
+Run the app by typing npm run dev on the terminal.
 
 # Stacks
 This app is using Vue3, Vite, Bootstrap 4, HTML, CSS, and JavaScript.
