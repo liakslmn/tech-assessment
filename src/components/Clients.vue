@@ -4,21 +4,33 @@
       <div class="wrapper">
         <h2>What Clients Say</h2>
         <ul class="nav justify-content-center">
-          <li class="nav-item">
-            <a class="nav-link active" href="#">Telco</a>
+          <li
+            @click="activeTabs = '1'"
+            :class="[activeTabs === '1' ? 'active nav-item' : 'nav-item']"
+          >
+            Telco
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Insurance</a>
+          <li
+            @click="activeTabs = '2'"
+            :class="[activeTabs === '2' ? 'active nav-item' : 'nav-item']"
+          >
+            Insurance
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Fintech</a>
+          <li
+            @click="activeTabs = '3'"
+            :class="[activeTabs === '3' ? 'active nav-item' : 'nav-item']"
+          >
+            Fintech
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">IT</a>
+          <li
+            @click="activeTabs = '4'"
+            :class="[activeTabs === '4' ? 'active nav-item' : 'nav-item']"
+          >
+            IT
           </li>
         </ul>
         <div class="testimonial">
-          <div class="row">
+          <div class="row descriptions" v-if="activeTabs === '1'">
             <div class="col-md-1">
               <span>“</span>
             </div>
@@ -31,7 +43,54 @@
                 new digital experiences that will truly benefit our customers.
               </h3>
               <p>Jasmine Lee</p>
-              <p class="slick">[Position], [Company Name]</p>
+              <p class="slick">HR, Grab</p>
+            </div>
+          </div>
+          <div class="row descriptions" v-if="activeTabs === '2'">
+            <div class="col-md-1">
+              <span>“</span>
+            </div>
+            <div class="col-md-11">
+              <h3 class="mb-5">
+                GrowthOps has brought the right maturity in design, technology,
+                and analytic capabilities to take our platform to the next
+                level.
+              </h3>
+              <p>Brian Smith</p>
+              <p class="slick">Executive, Malaysia Airlines</p>
+            </div>
+          </div>
+          <div class="row descriptions" v-if="activeTabs === '3'">
+            <div class="col-md-1">
+              <span>“</span>
+            </div>
+            <div class="col-md-11">
+              <h3 class="mb-5">
+                GrowthOps is one of AIA's service provider who delivered a lot
+                of projects across APAC. They have broad business and technical
+                knowledge and a trustworthy partner that I would recommend to
+                any company.
+              </h3>
+              <p>Lillian Garcia</p>
+              <p class="slick">
+                Associate Director, American International Assurance (AIA)
+              </p>
+            </div>
+          </div>
+          <div class="row descriptions" v-if="activeTabs === '4'">
+            <div class="col-md-1">
+              <span>“</span>
+            </div>
+            <div class="col-md-11">
+              <h3 class="mb-5">
+                GrowthOps have helped us profitably acquire customers while
+                providing deep technical solutions to our analytics challenges.
+                GrowthOps is a true partner when it comes to digital marketing
+                and analytics, and they have truly impacted our business in a
+                positive way.
+              </h3>
+              <p>Christina Markle</p>
+              <p class="slick">VP of SME Banking, Business and Innovation</p>
             </div>
           </div>
         </div>
@@ -46,6 +105,11 @@
 <script>
 export default {
   name: "Clients",
+  data() {
+    return {
+      activeTabs: "1",
+    };
+  },
 };
 </script>
 
@@ -59,6 +123,10 @@ export default {
   position: absolute;
   right: 0;
   top: 0;
+}
+
+.container {
+  padding: 0 20px;
 }
 .wrapper h2 {
   text-transform: uppercase;
@@ -77,17 +145,31 @@ export default {
   padding: 6px;
 }
 
-.nav .nav-link {
+.nav .nav-item {
   border-radius: 30px;
   color: white;
+  padding: 10px 20px;
+  cursor: pointer;
 }
 
-.nav .nav-link.active {
+.nav .nav-item.active {
   background: #07ddda;
   color: #010101;
   font-weight: 700;
 }
 
+.testimonial .descriptions {
+  animation: fades 1s;
+}
+
+@keyframes fades {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
 .testimonial h3 {
   font-size: 24px;
   font-weight: 500;
@@ -119,6 +201,9 @@ export default {
 }
 
 @media (max-width: 769px) {
+  .fixed-box {
+    padding: 50px 0;
+  }
   .wrapper h2 {
     font-size: 35px;
     font-weight: 800;
@@ -127,6 +212,10 @@ export default {
 
   .bg {
     display: none;
+  }
+
+  .nav .nav-item {
+    font-size: 12px;
   }
 }
 </style>

@@ -5,47 +5,94 @@
       <h3>Let's create something awesome together</h3>
     </div>
     <div class="forms">
-      <form action="">
+      <form @submit.prevent="onSubmit">
         <div class="form-data name">
-          <p>Full Name</p>
-          <input type="text" />
+          <label for="name">* Full Name</label>
+          <input
+            type="text"
+            name="name"
+            id="name"
+            v-model="form.name"
+            required
+          />
         </div>
         <div class="form-data phone-and-email">
           <div class="phone">
-            <p>Phone Number</p>
-            <input type="tel" name="phone" id="phone" />
+            <p>* Phone Number</p>
+            <input
+              type="tel"
+              name="phone"
+              id="phone"
+              v-model="form.phone"
+              required
+            />
           </div>
           <div class="email">
-            <p>Work Email</p>
-            <input type="email" name="email" id="email" />
+            <p>* Work Email</p>
+            <input
+              type="email"
+              name="email"
+              id="email"
+              v-model="form.email"
+              required
+            />
           </div>
         </div>
         <div class="form-data">
-          <p>I want to</p>
+          <p>* I want to</p>
           <div class="radio-button-wrapper">
             <div class="radio-button">
-              <input type="radio" id="client" name="client" value="client" />
-              <label for="client">Become a client</label>
+              <label for="client">
+                <input
+                  type="radio"
+                  id="client"
+                  name="wantTo"
+                  value="client"
+                  v-model="form.wantTo"
+                  required
+                />Become a client
+              </label>
             </div>
             <div class="radio-button">
-              <input type="radio" id="team" name="fav_language" value="team" />
-              <label for="team">Join the team</label>
+              <label for="team">
+                <input
+                  type="radio"
+                  id="team"
+                  name="wantTo"
+                  value="team"
+                  v-model="form.wantTo"
+                />Join the team</label
+              >
             </div>
             <div class="radio-button">
-              <input type="radio" id="investor" name="in" value="investor" />
-              <label for="team">investor Enquiry</label>
+              <label for="team">
+                <input
+                  type="radio"
+                  id="investor"
+                  name="wantTo"
+                  value="investor"
+                  v-model="form.wantTo"
+                />Investor inquiry</label
+              >
             </div>
             <div class="radio-button">
-              <input type="radio" id="other" name="ie" value="other" />
-              <label for="team">Others</label>
+              <label for="team">
+                <input
+                  type="radio"
+                  id="other"
+                  name="wantTo"
+                  value="other"
+                  v-model="form.wantTo"
+                />Others</label
+              >
             </div>
           </div>
         </div>
         <div class="form-data">
           <p>Tell us more</p>
           <textarea
-            id="w3review"
-            name="w3review"
+            id="review"
+            name="review"
             rows="4"
             cols="50"
             placeholder="Briefly describe your message here"
@@ -53,21 +100,47 @@
         </div>
         <div class="form-data">
           <div class="checkbox-data">
-            <input type="checkbox" name="pnc" id="pnc" /><label for="pnc"
+            <input type="checkbox" name="sub" id="sub" /><label for="sub"
               >I want to subscribe to the occasional insightful materials from
               GrowthOps. (optional)</label
             >
           </div>
           <div class="checkbox-data">
-            <input type="checkbox" name="subscribe" id="sub" /><label
-              for="subscribe"
-              >I have read and agree to the website’s privacy policy.</label
+            <input
+              type="checkbox"
+              name="pnc"
+              id="pnc"
+              v-model="form.pnc"
+              required
+            /><label for="pnc"
+              >* I have read and agree to the website's privacy policy.</label
             >
           </div>
         </div>
+        <div class="reminder">
+          <p>(* is a required field)</p>
+        </div>
+        <div
+          v-if="msg"
+          class="alert alert-success alert-dismissible fade show my-4"
+          role="alert"
+        >
+          {{ msg }}
+          <button
+            type="button"
+            class="close"
+            data-dismiss="alert"
+            aria-label="Close"
+          >
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
         <div class="form-data">
-          <div class="submit">
-            <input type="submit" value="Submit" />
+          <div>
+            <button class="submit">
+              <span v-if="!isLoading">Submit</span>
+              <span v-else>Loading...</span>
+            </button>
           </div>
         </div>
       </form>
@@ -83,8 +156,41 @@
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
   name: "Form",
+  data() {
+    return {
+      form: {
+        name: "",
+        phone: "",
+        email: "",
+        wantTo: "client",
+        review: "",
+        sub: false,
+        pnc: false,
+      },
+      msg: "",
+      isLoading: false,
+    };
+  },
+  methods: {
+    onSubmit: function (event) {
+      this.isLoading = true;
+      axios
+        .post(
+          "https://run.mocky.io/v3/59a75f97-b9da-4ba8-8e3e-22f4b343e95f",
+          this.form
+        )
+        .then((res) => {
+          this.msg = res.data.message;
+        })
+        .finally(() => {
+          this.isLoading = false;
+        });
+    },
+  },
 };
 </script>
 
@@ -179,6 +285,7 @@ export default {
 
 .forms .radio-button-wrapper .radio-button label {
   white-space: nowrap;
+  margin: 0 20px 0 0;
 }
 
 .forms .checkbox-data input[type="checkbox"] {
@@ -192,6 +299,7 @@ export default {
   border: 1px solid #f5f5f53d;
   background: linear-gradient(0deg, #0e1015, #0e1015),
     linear-gradient(0deg, rgba(245, 245, 245, 0.24), rgba(245, 245, 245, 0.24));
+  padding: 10px 20px;
 }
 
 .forms textarea {
@@ -210,7 +318,12 @@ export default {
   margin-right: 10px;
 }
 
-.forms input[type="submit"] {
+.forms .alert-success {
+  background-color: #07ddda;
+  font-weight: 600;
+}
+
+.forms .submit {
   width: fit-content;
   padding: 16px 40px;
   border-radius: 48px;
@@ -220,6 +333,12 @@ export default {
   font-size: 18px;
   font-weight: 800;
   line-height: 22px;
+}
+
+.reminder p {
+  font-style: italic;
+  margin-bottom: 20px;
+  font-size: 12px;
 }
 
 @media (max-width: 769px) {
