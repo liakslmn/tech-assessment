@@ -1,4 +1,13 @@
 <template>
+  <div v-show="elementVisible" class="badger">
+    <div class="words">
+      <div class="white-texts">
+        <h2>We're</h2>
+        <h2>GrowthOps</h2>
+      </div>
+      <h2 class="skewed">Asia</h2>
+    </div>
+  </div>
   <div class="main-banner">
     <div class="background-circle">
       <div class="first-circle"></div>
@@ -31,6 +40,15 @@ export default {
     Header,
     HeroText,
   },
+  data() {
+    return {
+      elementVisible: true,
+    };
+  },
+
+  created() {
+    setTimeout(() => (this.elementVisible = false), 4000);
+  },
 };
 </script>
 
@@ -41,6 +59,8 @@ export default {
   z-index: 99;
   overflow: hidden;
   height: 1100px;
+  animation: bannerAnimation 2s;
+  animation-delay: 2s;
 }
 
 .background-circle {
@@ -100,6 +120,66 @@ export default {
   position: absolute;
 }
 
+/* Badger animations starts */
+
+.badger {
+  display: flex;
+  background: #33fff3;
+  padding: 60px 30px;
+  height: 100vh;
+  justify-content: center;
+  position: absolute;
+  width: 100%;
+  z-index: 101;
+  top: 0;
+  animation: badgerAnimation 2s;
+  animation-delay: 2s;
+}
+
+.badger .words {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.badger h2 {
+  color: #f5f5f5;
+  font-size: 88px;
+  font-weight: 800;
+  margin: 0;
+}
+
+.badger .words .skewed {
+  background: #fff;
+  color: #33fff3;
+  margin-left: 20px;
+  padding: 10px 20px;
+  border-radius: 30px;
+  transform: rotate(-10deg);
+  text-align: left;
+}
+
+@keyframes badgerAnimation {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(-100%);
+  }
+}
+
+@keyframes bannerAnimation {
+  from {
+    transform: translateY(20%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+/* Badger animation ends */
+
 .secondary-banner {
   display: none;
   background: #33fff3;
@@ -146,9 +226,11 @@ export default {
 }
 
 @media (max-width: 769px) {
-  .main-banner {
+  .main-banner,
+  .badger {
     display: none;
   }
+
   .secondary-banner {
     display: flex;
     flex-direction: column;
